@@ -6,6 +6,7 @@
 #### Participants  :
 # Bibi : 
 # - architecture du nouvel objet Scene_Menu
+# - architecture principale des touches B/C
 # Arx/Guiop12 :
 # - Afficher Titre du jeu
 #

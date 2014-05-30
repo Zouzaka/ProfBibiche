@@ -18,7 +18,7 @@
 ####################################
 # ** Scene_Menu
 ####################################
-class Scene_Menu
+class Scene_Menu < Scene_Base
 
   #---------------------------------
   # * Start
@@ -42,7 +42,6 @@ class Scene_Menu
   #---------------------------------
   def terminate
     super # Héritage du terminate de Scene_Base
-    @title.dispose # On enlève la fenêtre qui affiche le titre du jeu
   end    
 
   #---------------------------------

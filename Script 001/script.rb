@@ -25,8 +25,8 @@ class Window_Temps < Window_Base
   # * initialize
   #---------------------------------
   def initialize
-    super(544-196,416-80,196,80) #Héritage de la fenêtre de base (x,y,width,height)
-    refresh # Redessinne le temps pour qu'ils affiche le bon
+    super(Graphics.width - 196, Graphics.height - 80,196,80) # Héritage de la fenêtre de base (x,y,width,height)
+    refresh # Redessinne le temps pour qu'il affiche le bon
   end
   #---------------------------------
   # * Update
@@ -42,8 +42,8 @@ class Window_Temps < Window_Base
   def refresh
     contents.clear # Nettoie le contenu de la fenêtre
     change_color(system_color) # Change la couleur du texte en couleur System
-    # Dessine le texte "Temps de jeu totale" sur la fenêtre
-    draw_text(0, 0, 180, line_height,  "Temps de jeu totale") 
+    # Dessine le texte "Temps de jeu total" sur la fenêtre
+    draw_text(0, 0, 180, line_height,  "Temps de jeu total : ") 
     change_color(normal_color) # Change la couleur du texte en couleur Normal
     # Dessine le temps de jeu sur la fenêtre
     draw_text(0, 24, 80, line_height,  $game_system.playtime_s)

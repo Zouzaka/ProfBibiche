@@ -1,19 +1,55 @@
 #######################################################################
 ##### Script Prof Bibiche
-#### ID            : 001
-#### But           : Faire un menu avec plein de features
-#### Version       : RPG Maker VXAce
-#### Participants  :
-# Bibi : 
+#### ID : 001
+#### But : Faire un menu avec plein de features
+#### Version : RPG Maker VXAce
+#### Participants :
+# Bibi :
 # - architecture du nouvel objet Scene_Menu
 # - architecture principale des touches B/C
 # Arx/Guiop12 :
 # - Afficher Titre du jeu
+# Zarby :
+# - Affichage du temps de jeu
 #
 #
 #######################################################################
 ##### Début du Script
 #######################################################################
+
+####################################
+# ** Window_Temps
+####################################
+class Window_Temps < Window_Base
+  #---------------------------------
+  # * initialize
+  #---------------------------------
+  def initialize
+    super(544-196,416-80,196,80) #Héritage de la fenêtre de base (x,y,width,height)
+    refresh # Redessinne le temps pour qu'ils affiche le bon
+  end
+  #---------------------------------
+  # * Update
+  #---------------------------------
+  def update
+    super
+    refresh # Redessinne le temps pour qu'ils affiche le bon
+  end
+  #---------------------------------
+  # * Refresh
+  # = Mise a jours du texte/temps afficher dans la fenêtre
+  #---------------------------------
+  def refresh
+    contents.clear # Nettoie le contenu de la fenêtre
+    change_color(system_color) # Change la couleur du texte en couleur System
+    # Dessine le texte "Temps de jeu totale" sur la fenêtre
+    draw_text(0, 0, 180, line_height,  "Temps de jeu totale") 
+    change_color(normal_color) # Change la couleur du texte en couleur Normal
+    # Dessine le temps de jeu sur la fenêtre
+    draw_text(0, 24, 80, line_height,  $game_system.playtime_s)
+  end
+  
+end
 
 ####################################
 # ** Scene_Menu
@@ -25,14 +61,15 @@ class Scene_Menu
   #---------------------------------
   def start
     super # Héritage du start de Scene_Base
-    create_title  # Commande "Afficher le titre du jeu"
-  end  
+    create_title # Commande "Afficher le titre du jeu"
+    @windowTemps = Window_Temps.new #Cree la fenêtre d'affichage du temps
+  end
   
   #---------------------------------
   # * Create Title
   # = Affichage du titre
   #---------------------------------
-  def create_title  #On va définir la commande "Afficher le titre du jeu"
+  def create_title #On va définir la commande "Afficher le titre du jeu"
     @title = Window_Help.new(1) # Création de la fenêtre pour afficher le titre du jeu
     @title.set_text($data_system.game_title) # @title affiche le nom du jeu alias $data_system.game_title
   end
@@ -42,13 +79,16 @@ class Scene_Menu
   #---------------------------------
   def terminate
     super # Héritage du terminate de Scene_Base
-  end    
+    SceneManager.goto(Scene_Map) # Retourne a la Scene_Map si le menu ce ferme
+  end
 
   #---------------------------------
   # * Update
   #---------------------------------
   def update
     super # Héritage du update de Scene_Base
+    @windowTemps.update # Mise a jour du temps sur la fenêtre
+    
     update_input # Mise à jour des appuis de touches
   end
   
@@ -70,6 +110,7 @@ class Scene_Menu
   #---------------------------------
   def update_input_b
     # Mettre ici ce qu'il se passe quand on appuie sur B (= Echap ou X)
+    terminate #On termine cette Scene
   end
   
   #---------------------------------

@@ -79,7 +79,7 @@ class Scene_Menu
   #---------------------------------
   def terminate
     super # Héritage du terminate de Scene_Base
-    SceneManager.goto(Scene_Map) # Retourne a la Scene_Map si le menu ce ferme
+    SceneManager.return # Utilise la notion de Pile de scène
   end
 
   #---------------------------------
@@ -97,6 +97,7 @@ class Scene_Menu
   # = Mise à jour des appuis de touches
   #---------------------------------
   def update_input
+    # Nuki : Pourquoi cette gestion des touches?
     if Input.trigger?(:B) # Si la touche B (= Echap ou X) est pressée...
       update_input_b # ...alors on va réaliser ce qui se trouve dans la méthode update_input_b
     elsif Input.trigger?(:C) # Si la touche C (= Entrée) est pressée...

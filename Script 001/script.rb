@@ -98,6 +98,7 @@ class Scene_Menu
   #---------------------------------
   def update_input
     # Nuki : Pourquoi cette gestion des touches?
+    # Biwy : Juste au cas où on n'utiliserait pas les Window_Command ou autre. Pas d'utilité majeure en gros.
     if Input.trigger?(:B) # Si la touche B (= Echap ou X) est pressée...
       update_input_b # ...alors on va réaliser ce qui se trouve dans la méthode update_input_b
     elsif Input.trigger?(:C) # Si la touche C (= Entrée) est pressée...

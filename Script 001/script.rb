@@ -14,6 +14,13 @@
 #
 #
 #######################################################################
+##### Personnalisation du Script
+#######################################################################
+PicName = ["Nom1","Nom2","Nom3","Nom4","Nom5","Nom6","Nom7","Curseur"]
+PicX = [50,100,150,200,250,300,350]
+PicY = [50,100,150,200,250,300,350]
+
+#######################################################################
 ##### Début du Script
 #######################################################################
 
@@ -43,10 +50,10 @@ class Window_Temps < Window_Base
     contents.clear # Nettoie le contenu de la fenêtre
     change_color(system_color) # Change la couleur du texte en couleur System
     # Dessine le texte "Temps de jeu total" sur la fenêtre
-    draw_text(0, 0, 180, line_height,  "Temps de jeu total : ") 
+    draw_text(0, 0, 180, line_height, "Temps de jeu total : ")
     change_color(normal_color) # Change la couleur du texte en couleur Normal
     # Dessine le temps de jeu sur la fenêtre
-    draw_text(0, 24, 80, line_height,  $game_system.playtime_s)
+    draw_text(0, 24, 80, line_height, $game_system.playtime_s)
   end
   
 end
@@ -63,8 +70,24 @@ class Scene_Menu
     super # Héritage du start de Scene_Base
     create_title # Commande "Afficher le titre du jeu"
     @windowTemps = Window_Temps.new #Cree la fenêtre d'affichage du temps
+    creat_pictures
   end
-  
+  #---------------------------------
+  # * Create Pictures
+  # = Affichage Images
+  #---------------------------------
+  def creat_pictures
+    @index_menu = 0
+    7.times do |i|
+      @item_viewport = Viewport.new(PicX[i], PicY[i], 50, 50)
+      @item_sprits[i] = Sprite.new(@item_viewport)
+      @item_sprits[i].bitmap = picture(PicName[i])
+    end
+    @curseur_viewport = Viewport.new(PicX[0], PicY[0], 50, 50)
+    @curseur_sprit = Sprite.new(@curseur_viewport)
+    @curseur_sprit.bitmap = picture(PicName[7])
+  end
+
   #---------------------------------
   # * Create Title
   # = Affichage du titre
@@ -79,7 +102,12 @@ class Scene_Menu
   #---------------------------------
   def terminate
     super # Héritage du terminate de Scene_Base
+    dispose_items
     SceneManager.return # Utilise la notion de Pile de scène
+  end
+  def dispose_items
+    @item_sprits.each{|i| i.dispose }
+    @curseur_sprit.dispose
   end
 
   #---------------------------------
